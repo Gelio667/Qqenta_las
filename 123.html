@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личное дело — Венторов Роберт Викторович</title>
+    <style>
+        :root {
+            --bg-body: #e4e7ed;
+            --bg-dossier: #f7f9fc;
+            --bg-panel: #ffffff;
+            --border-color: #cbd5e1;
+            --accent-amber: #b45309;
+            --accent-amber-bg: rgba(180, 83, 9, 0.08);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --text-heading: #0f172a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            line-height: 1.65;
+            padding: 30px 15px;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.8) 0%, transparent 70%),
+                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 24px 24px, 24px 24px;
+        }
+
+        .dossier-container {
+            max-width: 920px;
+            margin: 0 auto;
+            background-color: var(--bg-dossier);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 15px 45px rgba(15, 23, 42, 0.15);
+            position: relative;
+        }
+
+        .security-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-bottom: 2px solid var(--border-color);
+            background-color: #e2e8f0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .security-compartment {
+            padding: 14px 10px;
+            text-align: center;
+            color: var(--text-muted);
+            border-right: 1px solid var(--border-color);
+            position: relative;
+            user-select: none;
+        }
+
+        .security-compartment:last-child {
+            border-right: none;
+        }
+
+        .security-compartment.active {
+            background-color: var(--accent-amber-bg);
+            color: var(--accent-amber);
+            font-weight: 700;
+            box-shadow: inset 0 -3px 0 var(--accent-amber);
+        }
+
+        .security-compartment.active::before {
+            content: "●";
+            margin-right: 8px;
+            font-size: 0.75rem;
+            vertical-align: middle;
+        }
+
+        .header-logos {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding: 28px 45px;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(241,245,249,0.5) 100%);
+        }
+
+        .logos-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .logo-item-card {
+            background-color: #ffffff;
+            border: 2px solid #ffffff;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08), 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-item-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .header-center-divider {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            text-align: center;
+        }
+
+        .header-center-divider span {
+            display: block;
+            color: var(--accent-amber);
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+
+        .content {
+            padding: 35px 45px;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .field-card {
+            background-color: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--accent-amber);
+            padding: 14px 18px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .section-block {
+            margin-bottom: 28px;
+            padding-bottom: 24px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .section-block:last-of-type {
+            border-bottom: none;
+            margin-bottom: 10px;
+        }
+
+        h2.md-h2 {
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 1.05rem;
+            color: var(--accent-amber);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h2.md-h2::before {
+            content: "##";
+            color: var(--text-muted);
+            font-weight: normal;
+            font-size: 0.9rem;
+        }
+
+        h3.md-h3 {
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.95rem;
+            color: var(--text-heading);
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-left: 12px;
+            border-left: 2px solid var(--text-muted);
+        }
+
+        h3.md-h3::before {
+            content: "### ";
+            color: var(--text-muted);
+            font-weight: normal;
+        }
+
+        p {
+            margin-bottom: 12px;
+            text-align: justify;
+            color: var(--text-main);
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        .field-card h2.md-h2 {
+            margin-bottom: 4px;
+            font-size: 0.85rem;
+        }
+
+        .field-card p {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-heading);
+            text-align: left;
+        }
+
+        blockquote.md-quote {
+            background-color: #f1f5f9;
+            border-left: 3px solid #94a3b8;
+            padding: 12px 18px;
+            margin: 10px 0;
+        }
+
+        .footer-section {
+            padding: 20px 45px 40px 45px;
+            background-color: #e2e8f0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .author-note {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'Consolas', 'Courier New', monospace;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .stamps-row {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding-top: 10px;
+        }
+
+        .stamp-card {
+            background-color: #ffffff;
+            border: 2px solid #ffffff;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            transform: rotate(-3deg);
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.1), 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stamp-card:nth-child(2) {
+            transform: rotate(2.5deg);
+        }
+
+        .stamp-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        @media (max-width: 760px) {
+            .header-logos {
+                padding: 20px;
+            }
+            .logo-item-card, .stamp-card {
+                width: 100% !important;
+                max-width: 260px;
+            }
+            .content {
+                padding: 25px 20px;
+            }
+            .security-bar {
+                font-size: 0.72rem;
+                letter-spacing: 1px;
+            }
+            .footer-section {
+                padding: 15px 20px 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="dossier-container">
+    <div class="security-bar">
+        <div class="security-compartment">Публично</div>
+        <div class="security-compartment active">Конфиденциально</div>
+        <div class="security-compartment">Секретно</div>
+    </div>
+
+    <div class="header-logos">
+        <div class="logos-row">
+            <div class="logo-item-card" style="width: 210px; height: 160px;">
+                <img src="spunk.png" alt="Spunk">
+            </div>
+            <div class="logo-item-card" style="width: 230px; height: 130px;">
+                <img src="aurum.png" alt="Aurum">
+            </div>
+            <div class="logo-item-card" style="width: 150px; height: 150px; border-radius: 50%;">
+                <img src="las_logo.png" alt="L.a.S.">
+            </div>
+        </div>
+
+        <div class="header-center-divider">
+            <span>ЛИЧНОЕ ДЕЛО // ДОСЬЕ</span>
+            SPUNK‑DShH // AURUM // L.a.S.
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="meta-grid">
+            <div class="field-card">
+                <h2 class="md-h2">Полное ФИО:</h2>
+                <p>Венторов Роберт Викторович</p>
+            </div>
+            <div class="field-card">
+                <h2 class="md-h2">Возраст:</h2>
+                <p>35 лет</p>
+            </div>
+            <div class="field-card">
+                <h2 class="md-h2">Откуда родом:</h2>
+                <p>Ижевск, Российская Федерация</p>
+            </div>
+        </div>
+
+        <div class="section-block">
+            <h2 class="md-h2">Характер:</h2>
+            <p>Роберт – человек, в котором дисциплина не просто привычка, а второй воздух. Он мыслит по‑примитивному плану: разум и расчёт – его инструменты, эмоции – лишнее. Он молчит, пока не придётся уточнить, и в каждом слове находится цель. Флирт понятен ему лишь как лишняя пунктуация, которую он предпочитает избавить. Для него главное — выполнить указание, а не отдать ему внимание. Лояльность к Корпорации и к Кодексу внутреннего распорядка – единственная часть мира, где он чувствует уверенность.</p>
+        </div>
+
+        <div class="section-block">
+            <h2 class="md-h2">Внешность:</h2>
+            <p>Рост — 186 см, стройный, будто модель для спорта. Края волос – темные, стрижены ровно по инструкции, но по вискам уже видны первые точки седины. Лицо прямолинейное, с крепость плеч, будто живёт под давлением заявлений о доблести. На правой брови тянется маленький, но старый шрам, как печать прошедшей борьбы.</p>
+            <p>Взгляд у него всегда тяжёлый, будто в нём спрятан постоянный анализ. Он остр, слегка подозрительный, словно всегда ищет скрытый код. Осанка прямая, скрепленная военной дисциплиной, подчёркивает дисциплину и готовность к действию.</p>
+            <p>Во время службы он почти всегда одет в безупречную униформу, где каждая строчка и застежка идеальны. Это не просто одежда, а облик, который не оставляет места сомнениям.</p>
+        </div>
+
+        <div class="section-block">
+            <h2 class="md-h2">Прошлое:</h2>
+            
+            <h3 class="md-h3">Экспозиция:</h3>
+            <p>Роберт родился в 2022 году, в Ижевске, где ржавую сталь превращают в гильзы. В то время привычный порядок уже начал отрываться от реальности, уступая место революционным кризисам и растущим мегакорпорациям.</p>
+            <p>Отец был офицером, мать – медсестрой в военном госпитале, и семья Роберта надёжно держалась в рамках военного сословия. С самого начала в их доме царила строгая дисциплина; каждое правило имело место, и отойти от него сложно.</p>
+            <p>Так в окружении порядка и служебных обязанностей нашёлся молодой Роберт, готовый к любым вызовам, которые ждут его за пределами Ижевска.</p>
+
+            <h3 class="md-h3">Завязка:</h3>
+            <p>Роберт рос в условиях, где спартанский дух превратил каждый день в испытание. Отец ничего не позволял ему расслабляться: ранний подъем, ежедневные тренировки и строгие критерии дисциплины и учебы – таким было детство у Роберта. Ошибки не прощались, а сильные эмоции считались непрошенными слабостями. В итоге мальчик рано обрел взрослого. Он понял, что нужно хранить свои чувства в глубине, биться с болью и безусловно не поддаваться старшим. В итоге эти годы заковали в нём твердую решимость, но при этом сделали его замкнутым и подозрительным по отношению к незнакомцам.</p>
+
+            <h3 class="md-h3">Развитие действий:</h3>
+            <p>В пятнадцать Роберт поступил в военное кадетское училище. Там он мгновенно погрузился в жесткую иерархию, где каждый командный глоток воздуха отнесён к правилам. Он понял, что победа тех, кто умен и умеет держать эмоции под контролем.</p>
+            <p>Статус лучше всего проявился в тактической подготовке. Его усилия сделали его одним из ведущих курсантов.<br>
+            После выпуска он подписал контракт в горячих точках. Реальная служба, где надежда встречается реже с риском.</p>
+            <p>К 2046 году мир упал в хаос. Вербовщики корпорации Spunk‑DShH прогнали его в российский филиал, начиная как простейший охранник секторов. Яркая скука, но с едкой репортажной солидностью.</p>
+            <p>В течение лет он видел ужасающие эксперименты Kurodzakura, сопровождал ученых и конвоировал опасный расходный материал. Сталкивался снизу с мутантами, учась выживать в их сектире.</p>
+            <p>Мир внутри комплекса, хотя и жесток, был понятным: есть Устав, а нарушение – смерть. Роберт стал идеальным раскрученным винтиком в системе корпорации Aurum.</p>
+
+            <h3 class="md-h3">Кульминация:</h3>
+            <p>В 2054 году настал этот решающий момент. Отключение питания в секторе с тяжелой техникой сошлось с бунтом тест‑субъектов и внезапной утечкой биологической угрозы 2‑го уровня. Чистая паника охватила рядовой персонал.</p>
+            <p>Командир охраны, поддавшись страху, распорядился отступлением и нарушил протокол, оставив учёных в непредсказуемом положении. Роберт же, не теряя холоднокровия, бережно взял курс на себя ответственность.</p>
+            <p>Он игнорировал трусливого командира, собрал группу надёжных бойцов и вооружился шокерами и дубинками. Заметив, как расходники влезали в кучу, он быстро подавил их, закрыв гермодвери и изолируя мутантов. Угроза была нейтрализована.</p>
+            <p>После того как мутанты были помещены в условия изоляции, Роберт лично составил рапорт о халатности и дезертирстве бывшего командования. Бывший командир службы безопасности отправился под трибунал.</p>
+
+            <h3 class="md-h3">Развязка и эпилог:</h3>
+            <p>Роберт сразу привлёк внимание руководства – не за туманность его решения, а за упорство. Он был тем, кто ставил безопасность комплекса и Кодекс выше жизни коллег и собственных страхов.</p>
+            <p>После ряда точных проверок и тестов, в 2057 году Венторов перешёл в T.D.o.S. "L.a.S." – Департамент по надзору "Ликвидация и Безопасность". Теперь он получил статус полноценного агента по контролю персонала.</p>
+            <p>С того дня он стал тем суровым надзирателем, чьи задачи просты, но важны: находить нарушителей, сразу сдерживать неэтичные действия и следить, чтобы все исполняли приказ.</p>
+            <p>Его жизнь теперь полностью состоит служением порядку. И если кто‑то решит бросить вызов установленным правилам, готовность использовать любые меры против него будет неоспорима.</p>
+            <p>Такой подход сделал Роберта ключевой фигурой в системе контроля, обмазывая стены собственной решимостью.</p>
+        </div>
+
+        <div class="section-block">
+            <h2 class="md-h2">Что нравится, а что нет:</h2>
+            <blockquote class="md-quote">
+                <p>Нравится: Отчёты всегда в идеальном порядке.<br>
+                С чашкой крепкого чёрного кофе без сахара посреди дня он чувствует, как всё станет яснее. Беспрекословное подчинение его приказам и приказам начальства.<br>
+                Тишина в каждом секторе держится, будто в шахте —покой, но без пустоты.</p>
+            </blockquote>
+            <blockquote class="md-quote">
+                <p>Не нравится: Халатность в работе научного персонала стала заметной проблемой. Разговоры по рации напрямую в разрез с пунктами устава. Проявление халатности и трусливости.</p>
+            </blockquote>
+        </div>
+
+        <div class="section-block">
+            <h2 class="md-h2">Страхи:</h2>
+            <p>Сорвать самоконтроль, потерять рассудок, человеческий вид и превратиться в мутанта.</p>
+        </div>
+
+        <div class="section-block">
+            <h2 class="md-h2">Хобби:</h2>
+            <p>Для него стрельба в тире – это не просто спорт, а настоящий ритуал. В свободное время он разбирает и чистит табельное оружие, учитывая каждый шиф и резу. А ещё его привлекают архивы: он читает старые военные записи, старается понять, как тогда действовали люди на фронте.</p>
+        </div>
+
+        <div class="section-block">
+            <h2 class="md-h2">Здоровье:</h2>
+            <p>У него хроническая бессонница: засыпание идёт медленно, и ночью он успевает отдохнуть только 4–5 часов. Это постоянный спутник. Каждый раз, когда головная боль заходит, он старается не пропустить свет и не перегрузить мозг.</p>
+        </div>
+    </div>
+
+    <div class="footer-section">
+        <small class="author-note">Автор: boreal_builder</small>
+
+        <div class="stamps-row">
+            <div class="stamp-card" style="width: 270px; height: 110px;">
+                <img src="aurum_stamp_p.png" alt="Aurum Stamp">
+            </div>
+
+            <div class="stamp-card" style="width: 210px; height: 210px; border-radius: 50%;">
+                <img src="approved.png" alt="Approved Stamp">
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
