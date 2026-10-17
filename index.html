@@ -113,10 +113,16 @@
             justify-content: center;
         }
 
+        .logo-item-card.round {
+            width: 140px !important;
+            height: 140px !important;
+            border-radius: 50% !important;
+        }
+
         .logo-item-card img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             display: block;
         }
 
@@ -274,10 +280,16 @@
             transform: rotate(2.5deg);
         }
 
+        .stamp-card.round {
+            width: 150px !important;
+            height: 150px !important;
+            border-radius: 50% !important;
+        }
+
         .stamp-card img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             display: block;
         }
 
@@ -286,8 +298,11 @@
                 padding: 20px;
             }
             .logo-item-card, .stamp-card {
-                width: 100% !important;
                 max-width: 260px;
+            }
+            .logo-item-card.round, .stamp-card.round {
+                width: 140px !important;
+                height: 140px !important;
             }
             .content {
                 padding: 25px 20px;
@@ -313,14 +328,14 @@
 
     <div class="header-logos">
         <div class="logos-row">
-            <div class="logo-item-card" style="width: 210px; height: 160px;">
-                <img src="spunk.png" alt="Spunk">
+            <div class="logo-item-card" style="width: 190px; height: 140px;">
+                <img src="spunk.png" alt="Spunk Inc. Logo">
             </div>
-            <div class="logo-item-card" style="width: 230px; height: 130px;">
-                <img src="aurum.png" alt="Aurum">
+            <div class="logo-item-card" style="width: 210px; height: 120px;">
+                <img src="aurum.png" alt="Aurum Corp Logo">
             </div>
-            <div class="logo-item-card" style="width: 150px; height: 150px; border-radius: 50%;">
-                <img src="las_logo.png" alt="L.a.S.">
+            <div class="logo-item-card round">
+                <img src="las_logo.png" alt="L.a.S. Logo">
             </div>
         </div>
 
@@ -423,11 +438,11 @@
         <small class="author-note">Автор: boreal_builder</small>
 
         <div class="stamps-row">
-            <div class="stamp-card" style="width: 270px; height: 110px;">
-                <img src="aurum_stamp_p.png" alt="Aurum Stamp">
+            <div class="stamp-card" style="width: 250px; height: 120px;">
+                <img src="aurum_stamp.png" alt="Aurum Stamp">
             </div>
 
-            <div class="stamp-card" style="width: 210px; height: 210px; border-radius: 50%;">
+            <div class="stamp-card round">
                 <img src="approved.png" alt="Approved Stamp">
             </div>
         </div>
