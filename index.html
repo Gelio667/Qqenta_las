@@ -113,11 +113,19 @@
             justify-content: center;
         }
 
-        /* Уменьшенные круглые логотипы */
+        /* Приближенные круглые логотипы */
         .logo-item-card.round {
             width: 110px !important;
             height: 110px !important;
             border-radius: 50% !important;
+        }
+
+        .logo-item-card.round img {
+            width: 115%;
+            height: 115%;
+            object-fit: cover; /* Приближает картинку внутри круга */
+            object-position: center;
+            display: block;
         }
 
         .logo-item-card img {
@@ -283,11 +291,19 @@
             transform: rotate(2.5deg);
         }
 
-        /* Уменьшенный круглый штамп снизу */
+        /* Приближенный круглый штамп снизу */
         .stamp-card.round {
             width: 120px !important;
             height: 120px !important;
             border-radius: 50% !important;
+        }
+
+        .stamp-card.round img {
+            width: 115%;
+            height: 115%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
         }
 
         .stamp-card img {
