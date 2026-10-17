@@ -113,18 +113,28 @@
             justify-content: center;
         }
 
-        /* Приближенные круглые логотипы */
+        /* Круглые логотипы */
         .logo-item-card.round {
             width: 110px !important;
             height: 110px !important;
             border-radius: 50% !important;
         }
 
-        .logo-item-card.round img {
+        /* Смещение логотипа Spunk чуть влево */
+        .logo-item-card.round.spunk-logo img {
             width: 115%;
             height: 115%;
-            object-fit: cover; /* Приближает картинку внутри круга */
-            object-position: center;
+            object-fit: cover;
+            object-position: 45% center;
+            display: block;
+        }
+
+        /* Смещение логотипа L.a.S. вправо */
+        .logo-item-card.round.las-logo img {
+            width: 115%;
+            height: 115%;
+            object-fit: cover;
+            object-position: 55% center;
             display: block;
         }
 
@@ -291,7 +301,6 @@
             transform: rotate(2.5deg);
         }
 
-        /* Приближенный круглый штамп снизу */
         .stamp-card.round {
             width: 120px !important;
             height: 120px !important;
@@ -349,13 +358,13 @@
 
     <div class="header-logos">
         <div class="logos-row">
-            <div class="logo-item-card round">
+            <div class="logo-item-card round spunk-logo">
                 <img src="spunk.png" alt="Spunk Inc. Logo">
             </div>
             <div class="logo-item-card" style="width: 220px; height: 100px;">
                 <img src="aurum.png" alt="Aurum Corp Logo">
             </div>
-            <div class="logo-item-card round">
+            <div class="logo-item-card round las-logo">
                 <img src="las_logo.png" alt="L.a.S. Logo">
             </div>
         </div>
